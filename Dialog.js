@@ -13,8 +13,8 @@ class Dialog {
                         <div data-ref="content"></div>
                     </div>
                     <div class="modal-footer">
-                        <button value="cancel" data-ref="btoCancel">Cancel</button>
-                        <button value="default" data-ref="btoAccept">Accept</button>
+                        <button type="button" value="cancel" data-ref="btoCancel">Cancel</button>
+                        <button type="button" value="default" data-ref="btoAccept">Accept</button>
                     </div>
                 </form>
                 `,
@@ -30,6 +30,7 @@ class Dialog {
     }
 
     init() {
+        console.log("Creating 'dialog' element...");
         this.dialog = document.createElement("dialog"); // Creación del elemento modal
         document.body.appendChild(this.dialog); // Se añade la modal creada al DOM
 
@@ -60,23 +61,45 @@ class Dialog {
                 resolve(false);
             });*/
 
+            // Se enfoca el primer elemento input de la ventana tras terminar la animación de apertura
+            this.dialog.addEventListener('transitionend', (e) => {
+                let el = this.dialog.querySelector('input');
+                if (el) {
+                    el.focus();
+                }
+            });
+
             this.elements.btoAccept.addEventListener("click", () => {
                 resolve("Dato devuelto: " + this.elements.btoAccept.value);
-                this.dialog.close();
+                cerrarModal.call(this);
             });
 
             [this.elements.closeX, this.elements.btoCancel].forEach(el => {
                 el.addEventListener("click", () => {
                     resolve(false);
-                    this.dialog.dispatchEvent(new Event('cancel'));
-                    this.dialog.close();
+                    cerrarModal.call(this);
+
+                    //this.dialog.dispatchEvent(new Event('cancel'));
                 });
             });
 
+            // Cierra la modal con un efecto y la elimina del DOM
+            function cerrarModal() {
+                this.dialog.classList.add('hide');
+                this.dialog.addEventListener('animationend', function () {
+                    this.dialog.close();
+                    this.dialog.remove();
+                }.bind(this), false);
+            }
+
             // Elimina la modal del DOM una vez cerrada
-            this.dialog.addEventListener("close", () => {
-                this.dialog.remove();
-            });
+            /* this.dialog.addEventListener("close", () => {
+                // Para dar tiempo a la animación de cierre se retrasa la eliminación un tiempo
+                setTimeout(() => {
+                    this.dialog.remove();
+                }, 300);
+
+            }); */
         });
     }
 
@@ -86,6 +109,7 @@ class Dialog {
         this.populate();
 
         this.dialog.showModal();
+
 
         return this.waitForUser(); // Se retorna una promesa
     }

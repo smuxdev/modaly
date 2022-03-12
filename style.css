@@ -6,7 +6,6 @@ dialog {
     color: #212529;
 
     background-color: #fff;
-    color: #212529;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3rem;
     background-clip: padding-box;
@@ -15,9 +14,8 @@ dialog {
     overflow: hidden;
     display: flex;
     max-height: calc(100% - 3rem);
-    /*transition: visibility 1s linear 1s, opacity 11s linear;
-    opacity: 0;
-    visibility: hidden;*/
+
+    /* transition: visibility .2s linear, opacity .2s linear; */
     /*box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;*/
 }
 
@@ -71,7 +69,30 @@ dialog .modal-footer {
 /* Animación de apertura/cierre */
 
 dialog[open] {
-    visibility: visible;
-    opacity: 1;
-    transition-delay: 0s;
+    animation: show .3s ease normal;
+}
+
+dialog:not([open]) {
+    /* visibility: hidden;
+    opacity: 0; */
+}
+
+dialog.hide {
+    animation: hide .3s ease normal;
+}
+
+@keyframes hide {
+    to {
+        transform: translateY(-110%);
+    }
+}
+
+@keyframes show {
+    from {
+        transform: translateY(-110%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
 }

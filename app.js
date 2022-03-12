@@ -14,7 +14,7 @@ import { Dialog } from "./Dialog.js";
         });
         modal.open({
             content: `<p>Aquí puede ir cualquier contenido HTML :)</p>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><p>fin</p>`
+            <br><br><input type="text"></input><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><p>fin</p>`
         }).then(valueReturned => {
             if (valueReturned) {
                 console.log("La modal dice: " + valueReturned);

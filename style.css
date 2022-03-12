@@ -38,7 +38,9 @@ dialog .modal-header {
     border-bottom: 1px solid #dee2e6;
 }
 
-dialog .modal-header [data-ref="closeX"] {
+dialog .modal-header [data-ref="closeX"],
+dialog button,
+input[type="button"] {
     cursor: pointer;
 }
 

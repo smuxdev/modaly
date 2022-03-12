@@ -71,7 +71,7 @@ dialog .modal-footer {
 /* Animación de apertura/cierre */
 
 dialog[open] {
-    animation: show .3s ease normal;
+    animation: show .5s ease normal;
 }
 
 dialog:not([open]) {
@@ -80,18 +80,18 @@ dialog:not([open]) {
 }
 
 dialog.hide {
-    animation: hide .3s ease normal;
+    animation: hide .5s ease normal;
 }
 
 @keyframes hide {
     to {
-        transform: translateY(-110%);
+        transform: translateY(-200%);
     }
 }
 
 @keyframes show {
     from {
-        transform: translateY(-110%);
+        transform: translateY(-200%);
     }
 
     to {

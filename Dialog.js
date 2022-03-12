@@ -61,14 +61,6 @@ class Dialog {
                 resolve(false);
             });*/
 
-            // Se enfoca el primer elemento input de la ventana tras terminar la animación de apertura
-            this.dialog.addEventListener('transitionend', (e) => {
-                let el = this.dialog.querySelector('input');
-                if (el) {
-                    el.focus();
-                }
-            });
-
             this.elements.btoAccept.addEventListener("click", () => {
                 resolve("Dato devuelto: " + this.elements.btoAccept.value);
                 cerrarModal.call(this);
